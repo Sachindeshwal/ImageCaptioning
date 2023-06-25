@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name ="viewport" content="with=device-width,intial-scale=1.0">
+        <link rel="stylesheet" href="static/css/style.css">
+        <title>Image Caption Generator</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:ital,wght@0,300;0,600;0,700;1,100&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+         <section class="header">
+            <nav >
+                <a href="index.html" ><img src="static/images/logo_transparent.png" style="width:77px; margin-bottom: -2px;"></a>
+                <a href="#"><p class="vit">VIT BHOPAL</p></a>
+                <div class="nav-links">
+                    <ul>
+                        
+                        <li><a href="{{ url_for('home') }}">HOME</a></li>
+                        <li><a href="static/paper/Image caption Generator using CNN and RNN.pdf" target="_blank">PAPER</a></li>
+                        
+                    </ul>
+
+                </div>
+                
+            </nav>    
+            <div class="text-box">
+                <h1 style="font-size:3rem;">IMAGE CAPTION GENERATOR</h1>
+                {% if img %}
+                <div class="row" style="margin-top:20px; display:flex; align-items: center;">
+                    <div class="column">
+                        <img src="{{ img }}" style="max-height: 30vw; max-width: 100%;">
+                    </div>
+                    <div class="column">
+                        <p class="cap" style="margin-top:20px; text-align:center; font-size: 2rem;">{{ caption }}</p>
+                    </div>
+                </div>
+                <a class="hero-btn" href="{{ url_for('home') }}">Try Another Image</a>
+                {% else %}
+                <P style="font-size:1.5rem;">UPLOAD IMAGE HERE </P>
+                <form id='form' method="POST" enctype="multipart/form-data">
+                    <div class="upload-btn-wrapper">
+                        <button class="btn">Upload a file</button>
+                        <input type="file" id="input-image" name="file" accept="image/*" required>
+                    </div>
+                  <br>
+                  <img id="preview" style="max-height:60vh;max-width:100%;"><br>
+                  <button id='submit_button' class="hero-btn" type="submit">Submit</button>
+                </form>
+                {% endif %}
+
+                <script>
+                    const inputImage = document.getElementById("input-image");
+                    const preview = document.getElementById("preview");
+                    inputImage.addEventListener("change", function() {
+                    const imageFile = inputImage.files[0];
+                    preview.src = URL.createObjectURL(imageFile);
+                    });
+                </script>
+            </div>
+        </section>
+    </body>
+</html>
